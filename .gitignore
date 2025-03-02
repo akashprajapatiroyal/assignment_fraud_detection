@@ -1,0 +1,8 @@
+# Ignore Angular dependencies
+plagiarism-frontend/node_modules/
+plagiarism-frontend/dist/
+
+# Ignore Flask virtual environment
+plagiarism-backend/venv/
+__pycache__/
+*.pyc

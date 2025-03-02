@@ -1,0 +1,43 @@
+<!-- <img src= "assets/Logo.png" class="center" width="200" height="80" display:block> -->
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs nav">
+	<li [ngbNavItem]="1" (click)="navigateTo('/home')">
+		<button ngbNavLink>Home</button>
+		<ng-template ngbNavContent>
+		<div>
+			<!-- <app-home></app-home> -->
+		</div>
+		</ng-template>
+	</li>
+	<li [ngbNavItem]="2" (click)="navigateTo('/detect')">
+		<button ngbNavLink>Check Assignment Fraud</button>
+		<ng-template ngbNavContent>
+			<!-- <app-detect></app-detect> -->
+		</ng-template>
+	</li>
+	<li [ngbNavItem]="3">
+		<button ngbNavLink>Report</button>
+		<ng-template ngbNavContent>
+			<p>
+				Sed commodo, leo at suscipit dictum, quam est porttitor sapien, eget sodales nibh elit id diam. Nulla facilisi.
+				Donec egestas ligula vitae odio interdum aliquet. Duis lectus turpis, luctus eget tincidunt eu, congue et odio.
+				Duis pharetra et nisl at faucibus. Quisque luctus pulvinar arcu, et molestie lectus ultrices et. Sed diam urna,
+				egestas ut ipsum vel, volutpat volutpat neque. Praesent fringilla tortor arcu. Vivamus faucibus nisl enim, nec
+				tristique ipsum euismod facilisis. Morbi ut bibendum est, eu tincidunt odio. Orci varius natoque penatibus et
+				magnis dis parturient montes, nascetur ridiculus mus. Mauris aliquet odio ac lorem aliquet ultricies in eget
+				neque. Phasellus nec tortor vel tellus pulvinar feugiat.
+			</p>
+		</ng-template>
+	</li>
+</ul>
+
+<div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+<!-- <pre>Active: {{ active }}</pre> -->
+<!-- <nav>
+  <a routerLink="/upload" routerLinkActive="active">Upload File</a> |
+  <a routerLink="/results" routerLinkActive="active">View Results</a>
+</nav>
+<h1>Hello! Welcome to the Hello-World tutorial</h1> -->
+<!-- <app-home></app-home> -->
+
+<router-outlet></router-outlet>
