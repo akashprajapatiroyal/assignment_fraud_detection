@@ -17,7 +17,7 @@ app.config["MYSQL_USER"] = "root"
 app.config["MYSQL_PASSWORD"] = "root"
 app.config["MYSQL_DB"] = "plagiarism_checker"
 
-mysql = MySQL(app, origins=['http://localhost:4200'])
+mysql = MySQL(app)
 
 # File Upload Configuration
 UPLOAD_FOLDER = "uploads"

@@ -4,5 +4,6 @@ plagiarism-frontend/dist/
 
 # Ignore Flask virtual environment
 plagiarism-backend/venv/
+plagiarism-backend/uploads
 __pycache__/
 *.pyc

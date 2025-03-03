@@ -7,11 +7,13 @@
       aria-describedby="inputGroupFileAddon04"
       aria-label="Upload"
       multiple
+      (change)="onFileSelected($event)"
     />
     <button
       class="btn btn-outline-secondary"
       type="button"
       id="inputGroupFileAddon04"
+      (click)="uploadFiles()"
     >
       Button
     </button>
