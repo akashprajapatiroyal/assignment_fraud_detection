@@ -1,0 +1,30 @@
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow-lg p-4 rounded-4" style="max-width: 400px; width: 100%;">
+      <div class="text-center mb-4">
+        <h2 class="fw-bold text-primary">Register</h2>
+        <p class="text-muted">Create a new account</p>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Username</label>
+        <input type="text" class="form-control" placeholder="Enter your username" (ngModel)="user.username" />
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" placeholder="Enter your email" (ngModel)="user.email" />
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-control" placeholder="Enter your password" (ngModel)="user.password" />
+      </div>
+  
+      <button class="btn btn-primary w-100 rounded-3 fw-semibold" (click)="register()">Register</button>
+  
+      <div class="text-center mt-3">
+        <p class="text-muted">Already have an account? <a href="/login" class="text-primary fw-semibold">Login</a></p>
+      </div>
+    </div>
+  </div>
+  

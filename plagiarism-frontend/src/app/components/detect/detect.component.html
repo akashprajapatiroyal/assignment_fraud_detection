@@ -1,21 +1,56 @@
-<div class="p-2">
-  <div class="input-group">
-    <input
-      type="file"
-      class="form-control"
-      id="inputGroupFile04"
-      aria-describedby="inputGroupFileAddon04"
-      aria-label="Upload"
-      multiple
-      (change)="onFileSelected($event)"
-    />
-    <button
-      class="btn btn-outline-secondary"
-      type="button"
-      id="inputGroupFileAddon04"
-      (click)="uploadFiles()"
-    >
-      Button
-    </button>
+<div class="container-fluid vh-100 d-flex">
+  <!-- Left Side: File Upload Section -->
+  <div class="col-md-6 d-flex align-items-center justify-content-center bg-light p-5">
+    <div class="card shadow-lg p-4 rounded-4 w-75">
+      <div class="text-center mb-4">
+        <h2 class="fw-bold text-primary">Upload Assignment</h2>
+        <p class="text-muted">Submit files for fraud detection.</p>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Choose Files</label>
+        <div class="input-group">
+          <input 
+            type="file" 
+            class="form-control" 
+            multiple 
+            (change)="onFileSelected($event)" 
+          />
+          <button 
+            class="btn btn-primary fw-semibold" 
+            type="button" 
+            (click)="uploadFiles()"
+          >
+            Upload
+          </button>
+        </div>
+      </div>
+
+      <div class="text-center mt-3">
+        <button class="btn btn-danger fw-semibold px-4">Detect</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Side: Fraud Detection Results -->
+  <div class="col-md-6 d-flex align-items-center justify-content-center bg-white p-5">
+    <div class="card shadow-lg p-4 rounded-4 w-75">
+      <div class="text-center mb-4">
+        <h2 class="fw-bold text-danger">Fraud Detection Results</h2>
+        <p class="text-muted">See the detected fraud details below.</p>
+      </div>
+
+      <div class="alert alert-info" *ngIf="!results">
+        <p class="mb-0">No results yet. Upload a file and click <strong>Detect</strong> to start.</p>
+      </div>
+
+      <div *ngIf="results">
+        <ul class="list-group">
+          <li class="list-group-item" *NgFor="let result of results">
+            {{ result }}
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>

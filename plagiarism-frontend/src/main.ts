@@ -9,6 +9,9 @@ import { routes } from './app/app.routes';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatCheckboxModule } from '@angular/material/checkbox'; // Import Checkbox Module
+import { AppLayoutComponent } from './app/app-layout.component';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -19,6 +22,8 @@ bootstrapApplication(AppComponent, {
       MatSidenavModule,
       MatListModule,
       MatCheckboxModule,
+      CommonModule,
+      MatFormFieldModule
     ) // Import Angular Material Toolbar
   ]
 }).catch(err => console.error(err));

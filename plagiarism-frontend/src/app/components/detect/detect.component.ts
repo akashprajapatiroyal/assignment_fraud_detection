@@ -1,15 +1,18 @@
+import { NgFor, NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-detect',
   standalone: true,
-  imports: [],
+  imports: [NgFor, NgIf],
   templateUrl: './detect.component.html',
   styleUrl: './detect.component.scss'
 })
 export class DetectComponent {
   selectedFiles: File[] = [];
+results: any;
+  
 
   constructor(private http: HttpClient) {}
 

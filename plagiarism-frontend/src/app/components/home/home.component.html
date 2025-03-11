@@ -1,5 +1,17 @@
-<div class="p-2">
-    <p>home works!</p>
-
-</div>
-<!-- <mat-slide-toggle>Toggle me!</mat-slide-toggle> -->
+<div class="container vh-100 d-flex flex-column justify-content-center align-items-center">
+    <h1 class="fw-bold text-primary text-center">Welcome to ClearGrade</h1>
+    <p class="text-center text-muted">Detect Fraud in Local Classroom assignments.</p>
+  
+    <div class="card shadow-lg p-4 rounded-4 mt-4" style="max-width: 600px; width: 100%;">
+      <h3 class="text-center text-dark">How to Detect Fraud?</h3>
+      <ul class="list-group list-group-flush mt-3">
+        <li class="list-group-item"><strong>Step 1:</strong> Upload your assignment files.</li>
+        <li class="list-group-item"><strong>Step 2:</strong> Algorithm processes and compares documents for any Plagarism.</li>
+        <li class="list-group-item"><strong>Step 3:</strong> Get a detailed plagiarism report.</li>
+      </ul>
+      <div class="text-center mt-4">
+        <button class="btn btn-primary btn-lg" (click)="navigateTo('/detect')">Start Detection</button>
+      </div>
+    </div>
+  </div>
+  
