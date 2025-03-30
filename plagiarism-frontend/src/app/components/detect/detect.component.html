@@ -14,12 +14,14 @@
             type="file" 
             class="form-control" 
             multiple 
-            (change)="onFileSelected($event)" 
+            (change)="onFileSelected($event)"
+            accept=".pdf,.docx,.txt" 
           />
           <button 
             class="btn btn-primary fw-semibold" 
             type="button" 
             (click)="uploadFiles()"
+            [disabled]="!selectedFiles.length"
           >
             Upload
           </button>
@@ -27,29 +29,85 @@
       </div>
 
       <div class="text-center mt-3">
-        <button class="btn btn-danger fw-semibold px-4">Detect</button>
+        <!-- <button class="btn btn-danger fw-semibold px-4">Detect</button> -->
+        <button 
+        class="btn btn-danger px-4" 
+        (click)="detectPlagiarism()"
+        [disabled]="isLoading"
+      >
+        <span *ngIf="!isLoading">Check Plagiarism</span>
+        <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
+      </button>
       </div>
     </div>
   </div>
 
   <!-- Right Side: Fraud Detection Results -->
   <div class="col-md-6 d-flex align-items-center justify-content-center bg-white p-5">
-    <div class="card shadow-lg p-4 rounded-4 w-75">
+    <div class="card shadow-lg p-4 rounded-4 w-100 h-100">
       <div class="text-center mb-4">
-        <h2 class="fw-bold text-danger">Fraud Detection Results</h2>
-        <p class="text-muted">See the detected fraud details below.</p>
+        <h2 class="fw-bold text-danger">Plagiarism Report</h2>
+        <p class="text-muted">Average similarity against other submissions</p>
       </div>
 
-      <div class="alert alert-info" *ngIf="!results">
-        <p class="mb-0">No results yet. Upload a file and click <strong>Detect</strong> to start.</p>
+      <div *ngIf="isLoading" class="text-center py-4">
+        <div class="spinner-border text-primary"></div>
+        <p class="mt-2">Analyzing documents...</p>
       </div>
 
-      <div *ngIf="results">
-        <ul class="list-group">
-          <li class="list-group-item" *NgFor="let result of results">
-            {{ result }}
-          </li>
-        </ul>
+      <div *ngIf="results.length > 0 && !isLoading" class="results-container">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>File Name</th>
+              <th>Avg Similarity</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let result of results" [class.table-danger]="result.average_similarity >= 0.7">
+              <td>{{ result.filename }}</td>
+              <td>
+                <span class="badge" [ngClass]="getSeverityClass(result.average_similarity)">
+                  {{ formatPercent(result.average_similarity) }}
+                </span>
+              </td>
+              <td>
+                <button 
+                  class="btn btn-sm btn-outline-primary" 
+                  (click)="toggleDetails(result.file_id)"
+                >
+                  {{ showDetails[result.file_id] ? 'Hide' : 'Show' }}
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Detailed Comparisons -->
+        <div *ngFor="let result of results" class="mt-4" [hidden]="!showDetails[result.file_id]">
+          <h5>Detailed comparison for <strong>{{ result.filename }}</strong></h5>
+          <div class="table-responsive">
+            <table class="table table-sm table-bordered">
+              <thead>
+                <tr>
+                  <th>Compared To</th>
+                  <th>Similarity Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let detail of result.details" [ngClass]="getSeverityClass(detail.score)">
+                  <td>{{ detail.compared_to }}</td>
+                  <td>{{ formatPercent(detail.score) }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="results.length === 0 && !isLoading" class="alert alert-info">
+        <p class="mb-0">No results yet. Upload files and click "Check Plagiarism".</p>
       </div>
     </div>
   </div>
