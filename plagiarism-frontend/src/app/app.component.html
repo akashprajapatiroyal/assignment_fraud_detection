@@ -9,6 +9,12 @@
 		</div>
 		</ng-template>
 	</li>
+	<li [ngbNavItem]="5" (click)="navigateTo('/about')">
+		<button ngbNavLink>About Us</button>
+		<ng-template ngbNavContent>
+			
+		</ng-template>
+	</li>
 	<li [ngbNavItem]="2" (click)="navigateTo('/detect')">
 		<button ngbNavLink>Check Assignment Fraud</button>
 		<ng-template ngbNavContent>
@@ -21,6 +27,7 @@
 			
 		</ng-template>
 	</li>
+	
 	<div class="ms-auto" *ngIf="showNavbar">
 	<li [ngbNavItem]="4" (click)="logout()" class="">
 		<button ngbNavLink>Logout</button>

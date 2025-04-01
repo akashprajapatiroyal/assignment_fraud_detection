@@ -1,7 +1,7 @@
 /* Import Animate.css for animations */
-// @import '~animate.css/animate.min.css';
 
-.page-wrapper {
+
+.about-wrapper {
   background: linear-gradient(to bottom, #e3f2fd 0%, #ffffff 100%);
   min-height: 100vh;
   display: flex;
@@ -9,14 +9,15 @@
   overflow-x: hidden;
 }
 
-.hero-section {
+.about-header {
   background: linear-gradient(135deg, #1480f4 0%, #0056b3 100%);
-  padding: 100px 20px;
+  padding: 80px 20px;
+  text-align: center;
   position: relative;
   overflow: hidden;
 }
 
-.hero-section::after {
+.about-header::after {
   content: '';
   position: absolute;
   top: 0;
@@ -25,13 +26,6 @@
   height: 100%;
   background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
   opacity: 0.3;
-}
-
-.hero-content {
-  max-width: 1000px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
 }
 
 .text-white {
@@ -52,42 +46,26 @@
   color: #607d8b !important;
 }
 
-.cta-btn {
-  padding: 14px 50px;
-  font-size: 18px;
-  margin: 15px;
-  background: linear-gradient(45deg, #fbfbfb, #fefefe);
-  color: #fff;
-  border-radius: 25px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.mission-section {
+  padding: 60px 20px;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
-.cta-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+.mission-card {
+  padding: 30px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
-.explore-btn {
-  padding: 14px 50px;
-  font-size: 18px;
-  margin: 15px;
-  background: linear-gradient(45deg, #fbfbfb, #fefefe);
-  color: #fff;
-  border-radius: 25px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.explore-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-.features-section {
-  padding: 80px 20px;
+.values-section {
+  padding: 60px 20px;
   text-align: center;
+  background: #f5f7fa;
 }
 
-.features-grid {
+.values-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 40px;
@@ -95,39 +73,54 @@
   margin: 50px auto;
 }
 
-.feature-card {
+.value-card {
   padding: 30px;
   background: #fff;
   border-radius: 12px;
   transition: transform 0.3s ease;
 }
 
-.feature-card:hover {
+.value-card:hover {
   transform: scale(1.05);
 }
 
-.feature-icon {
+.value-icon {
   font-size: 50px;
   color: #007bff;
   margin-bottom: 15px;
 }
 
-.how-it-works-section {
-  padding: 30px 20px;
-  background: #f5f7fa;
+.team-section {
+  padding: 60px 20px;
   text-align: center;
 }
 
-.how-it-works-card {
-  max-width: 700px;
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
   margin: 50px auto;
+}
+
+.team-card {
   padding: 30px;
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
-.cta-banner {
+.team-member {
+  text-align: center;
+}
+
+.team-icon {
+  font-size: 60px;
+  color: #007bff;
+  margin-bottom: 15px;
+}
+
+.cta-section {
   background: linear-gradient(135deg, #1480f4 0%, #0056b3 100%);
   padding: 80px 20px;
   text-align: center;
@@ -135,7 +128,7 @@
   overflow: hidden;
 }
 
-.cta-banner::after {
+.cta-section::after {
   content: '';
   position: absolute;
   top: 0;
@@ -146,10 +139,26 @@
   opacity: 0.3;
 }
 
+.cta-btn {
+  padding: 14px 50px;
+  font-size: 18px;
+  margin: 15px;
+  background: linear-gradient(45deg, #0056b3, #3998fd);
+  color: #fff;
+  border-radius: 25px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cta-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
 .footer {
   padding: 30px;
   background: linear-gradient(to top, #263238, #37474f);
   color: #fff;
+  margin-top: auto;
 }
 
 .footer-links {

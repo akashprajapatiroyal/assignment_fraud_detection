@@ -6,6 +6,8 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { AppComponent } from './app.component';
 import { AuthGuard } from './auth.guard';
 import { ReportComponent } from './components/report/report.component';
+import { PPolicyComponent } from './components/p-policy/p-policy.component';
+import { AboutComponent } from './components/about/about.component';
 export const routes: Routes = [
     // { path: '', redirectTo: '/home', pathMatch: 'full' }, // Redirect to Home by default
     // { path: 'home', component: HomeComponent },
@@ -19,6 +21,10 @@ export const routes: Routes = [
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'detect', component: DetectComponent, canActivate: [AuthGuard] },
     { path: 'reports', component: ReportComponent, canActivate: [AuthGuard] },
+    { path: 'privacy-policy', component: PPolicyComponent },
+    { path: 'about', component: AboutComponent, canActivate: [AuthGuard] }
+
+
 
     // Protected Routes - Only accessible after login
     // { 
