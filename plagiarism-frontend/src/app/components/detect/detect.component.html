@@ -50,10 +50,7 @@
         <p class="text-muted">Average similarity against other submissions</p>
       </div>
 
-      <div *ngIf="isLoading" class="text-center py-4">
-        <div class="spinner-border text-primary"></div>
-        <p class="mt-2">Analyzing documents...</p>
-      </div>
+      
 
       <!-- Progress Bar when loading -->
       <div *ngIf="isLoading" class="text-center py-4">
@@ -61,13 +58,19 @@
           <div 
             class="progress-bar progress-bar-striped progress-bar-animated bg-primary" 
             role="progressbar" 
-            style="width: 100%;" 
-            aria-valuenow="100" 
+            [style.width]="progressPercentage + '%'" 
+            [attr.aria-valuenow]="progressPercentage" 
             aria-valuemin="0" 
             aria-valuemax="100"
-          ></div>
+          > </div>
         </div>
+        {{ progressPercentage }}%
+        
         <p class="mt-2">Analyzing documents...</p>
+        <div *ngIf="isLoading" class="text-center py-4">
+          <div class="spinner-border text-primary"></div>
+          <!-- <p class="mt-2">Analyzing documents...</p> -->
+        </div>
       </div>
 
       <div *ngIf="results.length > 0 && !isLoading" class="results-container">

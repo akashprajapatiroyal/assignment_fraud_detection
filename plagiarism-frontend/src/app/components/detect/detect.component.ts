@@ -28,6 +28,8 @@ results: PlagiarismResult[] = [];
 isLoading = false;
 showDetails: { [key: number]: boolean } = {};
 uploadedFileIds: number[] = [];
+progressPercentage = 0;
+private progressInterval: any;
   constructor(private http: HttpClient) {}
 
   // Handle file selection
@@ -64,6 +66,15 @@ uploadedFileIds: number[] = [];
       return;
     }
     this.isLoading = true;
+    this.progressPercentage = 0;
+
+    // Simulate progress (replace this with real backend updates if available)
+    this.progressInterval = setInterval(() => {
+      if (this.progressPercentage < 90) { // Stop at 90% until response
+        this.progressPercentage += 10;
+      }
+    }, 500); // Update every 500ms
+
     // Add proper headers
   const headers = new HttpHeaders({
     'Content-Type': 'application/json'
@@ -72,18 +83,25 @@ uploadedFileIds: number[] = [];
       {
         file_ids: this.uploadedFileIds
       }, { headers: headers }).subscribe({
-      next: (res) => {
-        if (res.success) {
-          this.results = res.results;
-        } else {
-          alert(res.error || 'Unknown error occurred');
+        next: (res) => {
+          clearInterval(this.progressInterval); // Stop simulation
+          this.progressPercentage = 100; // Complete progress
+          setTimeout(() => { // Brief delay to show 100%
+            if (res.success) {
+              this.results = res.results;
+            } else {
+              alert(res.error || 'Unknown error occurred');
+            }
+            this.isLoading = false;
+            this.progressPercentage = 0; // Reset for next run
+          }, 300);
+        },
+        error: (err) => {
+          clearInterval(this.progressInterval);
+          alert(`Detection failed: ${err.error?.error || err.message}`);
+          this.isLoading = false;
+          this.progressPercentage = 0;
         }
-        this.isLoading = false;
-      },
-      error: (err) => {
-        alert(`Detection failed: ${err.error?.error || err.message}`);
-        this.isLoading = false;
-      }
     });
   }
 

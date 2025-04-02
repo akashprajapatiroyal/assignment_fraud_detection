@@ -32,3 +32,20 @@
     height: 1.2rem;
     border-width: 0.15em;
   }
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; // Adjust this based on your container's height
+  }
+  
+  .spinner-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  // Optional: Ensure the spinner itself is styled appropriately
+  mat-spinner {
+    margin: 0 auto; // Additional centering for horizontal alignment
+  }
