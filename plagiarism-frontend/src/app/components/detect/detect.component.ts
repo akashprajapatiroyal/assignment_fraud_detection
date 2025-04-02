@@ -1,6 +1,7 @@
 import { NgFor, NgIf, NgClass } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
+import * as XLSX from 'xlsx'; // Import xlsx library
 
 interface PlagiarismDetail {
   compared_to: string;
@@ -23,7 +24,7 @@ interface PlagiarismResult {
 })
 export class DetectComponent {
   selectedFiles: File[] = [];
-results: any;
+results: PlagiarismResult[] = [];
 isLoading = false;
 showDetails: { [key: number]: boolean } = {};
 uploadedFileIds: number[] = [];
@@ -98,6 +99,50 @@ uploadedFileIds: number[] = [];
 
   formatPercent(value: number): string {
     return (value * 100).toFixed(1) + '%';
+  }
+
+  // New method to download report as Excel
+  downloadReport(): void {
+    // Prepare data for Excel
+    const reportData: any[] = [];
+
+    this.results.forEach(result => {
+      // Add main result row
+      reportData.push({
+        'File Name': result.filename,
+        'Average Similarity': this.formatPercent(result.average_similarity),
+        ' ': '' // Empty column for spacing
+      });
+
+      // Add detailed comparisons
+      result.details.forEach(detail => {
+        reportData.push({
+          'File Name': '',
+          'Compared To': detail.compared_to,
+          'Similarity Score': this.formatPercent(detail.score)
+        });
+      });
+
+      // Add empty row for separation
+      reportData.push({ 'File Name': '', 'Average Similarity': '', ' ': '' });
+    });
+
+    // Create worksheet
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(reportData);
+    
+    // Set column widths
+    ws['!cols'] = [
+      { wch: 30 }, // File Name
+      { wch: 20 }, // Average Similarity / Compared To
+      { wch: 20 }  // Similarity Score
+    ];
+
+    // Create workbook and add the worksheet
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Plagiarism Report');
+
+    // Generate Excel file and trigger download
+    XLSX.writeFile(wb, `Plagiarism_Report_${new Date().toISOString().slice(0,10)}.xlsx`);
   }
 
 }
