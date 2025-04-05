@@ -75,6 +75,15 @@
       </div>
 
       <div *ngIf="results.length > 0 && !isLoading" class="results-container">
+        <!-- Download Report Button -->
+        <div class="text-end">
+          <button 
+            class="btn btn-success" 
+            (click)="downloadReport()"
+          >
+            Download Report (Excel)
+          </button>
+        </div>
         <table class="table table-hover">
           <thead>
             <tr>
@@ -103,15 +112,7 @@
           </tbody>
         </table>
 
-        <!-- Download Report Button -->
-        <div class="text-center mt-4">
-          <button 
-            class="btn btn-success" 
-            (click)="downloadReport()"
-          >
-            Download Report (Excel)
-          </button>
-        </div>
+        
 
         <!-- Detailed Comparisons -->
         <div *ngFor="let result of results" class="mt-4" [hidden]="!showDetails[result.file_id]">
