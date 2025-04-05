@@ -36,7 +36,7 @@
         [disabled]="isLoading"
         [disabled]="isupload"
       >
-        <span *ngIf="!isLoading">Check Plagiarism</span>
+        <span *ngIf="!isLoading">Detect</span>
         <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
       </button>
       </div>
@@ -47,7 +47,7 @@
   <div class="col-md-6 d-flex align-items-center justify-content-center bg-white p-5">
     <div class="card shadow-lg p-4 rounded-4 w-100 h-100">
       <div class="text-center mb-4">
-        <h2 class="fw-bold text-danger">Plagiarism Report</h2>
+        <h2 class="fw-bold text-danger">Assignment Fraud Report</h2>
         <p class="text-muted">Average similarity against other submissions</p>
       </div>
 
@@ -137,7 +137,7 @@
       </div>
 
       <div *ngIf="results.length === 0 && !isLoading" class="alert alert-info">
-        <p class="mb-0">No results yet. Upload files and click "Check Plagiarism".</p>
+        <p class="mb-0">No results yet. Upload files and click "Detect".</p>
       </div>
     </div>
   </div>

@@ -1,5 +1,5 @@
 <div class="container mt-4">
-  <h2>Plagiarism Report</h2>
+  <h2>Assignment Fraud Detection Report</h2>
   <!-- Download Button -->
   <div class="mb-3 text-end">
     <!-- <button mat-raised-button color="primary" (click)="exportToExcel()">Download as Excel</button> -->
@@ -41,7 +41,7 @@
 
     <!-- Similarity Column -->
     <ng-container matColumnDef="similarity">
-      <th mat-header-cell *matHeaderCellDef>Plagiarism (%)</th>
+      <th mat-header-cell *matHeaderCellDef>Similarity (%)</th>
       <td mat-cell *matCellDef="let element">{{ element.similarity }} %</td>
     </ng-container>
 
