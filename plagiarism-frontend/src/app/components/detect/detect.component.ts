@@ -2,6 +2,7 @@ import { NgFor, NgIf, NgClass } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import * as XLSX from 'xlsx'; // Import xlsx library
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 interface PlagiarismDetail {
   compared_to: string;
@@ -18,7 +19,7 @@ interface PlagiarismResult {
 @Component({
   selector: 'app-detect',
   standalone: true,
-  imports: [NgFor, NgIf, NgClass],
+  imports: [NgFor, NgIf, NgClass, MatProgressSpinnerModule],
   templateUrl: './detect.component.html',
   styleUrl: './detect.component.scss'
 })
@@ -26,6 +27,7 @@ export class DetectComponent {
   selectedFiles: File[] = [];
 results: PlagiarismResult[] = [];
 isLoading = false;
+isupload = true;
 showDetails: { [key: number]: boolean } = {};
 uploadedFileIds: number[] = [];
 progressPercentage = 0;
@@ -55,6 +57,7 @@ private progressInterval: any;
         alert('Files uploaded successfully!');
         // Store the uploaded file IDs
         this.uploadedFileIds = res.file_ids; // You'll need to return these from backend
+        this.isupload = false;
       },
       error: (err) => alert(`Upload failed: ${err.message}`)
     });
@@ -89,6 +92,37 @@ private progressInterval: any;
           setTimeout(() => { // Brief delay to show 100%
             if (res.success) {
               this.results = res.results;
+              const resultsToSave: {
+                file1: any; file2: any; // Use file_id of the compared file if available
+                similarity: any;
+              }[] = [];
+          console.log("result", this.results);
+          res.results.forEach((result: { details: any[]; file_id: any; filename:any; }) => {
+            result.details.forEach(detail => {
+              resultsToSave.push({
+                file1: result.filename,
+                file2: detail.compared_to, // Use file_id of the compared file if available
+                similarity: detail.score
+              });
+            });
+          });
+          
+          // Send results to backend to save in the database
+          this.http.post<any>('http://localhost:5000/save_results', 
+            { results: resultsToSave }, 
+            { headers: headers }
+          ).subscribe({
+            next: (saveRes) => {
+              if (saveRes.success) {
+                console.log('Results saved successfully');
+              } else {
+                alert('Failed to save results: ' + (saveRes.error || 'Unknown error'));
+              }
+            },
+            error: (saveErr) => {
+              alert('Failed to save results: ' + (saveErr.error?.error || saveErr.message));
+            }
+          });
             } else {
               alert(res.error || 'Unknown error occurred');
             }

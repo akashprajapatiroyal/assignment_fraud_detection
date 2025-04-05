@@ -142,7 +142,63 @@ def check_plagiarism():
 
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
+    
 
+@app.route("/save_results", methods=["POST"])
+def save_results():
+    if not request.is_json:
+        return jsonify({"error": "Content-Type must be application/json"}), 415
+    
+    data = request.get_json()
+    results = data.get("results", [])
+    
+    if not results:
+        return jsonify({"error": "No results provided"}), 400
+    
+    try:
+        cur = mysql.connection.cursor()
+        for result in results:
+            file1 = result["file1"]
+            file2 = result["file2"]
+            similarity = result["similarity"]
+            cur.execute(
+                "INSERT INTO results (file1, file2, similarity) VALUES (%s, %s, %s)",
+                (file1, file2, similarity)
+            )
+        mysql.connection.commit()
+        cur.close()
+        
+        return jsonify({"success": True, "message": "Results saved successfully"}), 200
+    
+    except Exception as e:
+        mysql.connection.rollback()
+        return jsonify({"success": False, "error": str(e)}), 500
+    
+    
+@app.route("/get_results", methods=["GET"])
+def get_results():
+    try:
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT id, file1, file2, similarity FROM results")
+        records = cur.fetchall()
+        cur.close()
+
+        results = []
+        for record in records:
+            id, file1, file2, similarity = record
+            results.append({
+                "id": id,
+                "file1": file1,
+                "file2": file2,
+                "similarity": round(similarity * 100, 2)  # Convert to percentage
+            })
+
+        return jsonify({
+            "success": True,
+            "results": results
+        }), 200
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
 
 # JWT Configuration
 app.config['JWT_SECRET_KEY'] = 'your_secret_key'
